@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mochen.yiyuan.mapper.UserMapper">
+
+
+
+    <!--添加用户-->
+    <insert id="insertUser" parameterType="User">
+        insert into oldbusiness.user(userID, userName, userPwd, userPhone, userBalance)
+            value (#{userID},#{userName},#{userPwd},#{userPhone},#{userBlance})
+    </insert>
+
+    <!--删除用户-->
+    <delete id="deleteUser" parameterType="String">
+        delete from oldbusiness.user
+        where userID=#{userID}
+    </delete>
+
+    <!--修改用户 - 客户端-->
+    <update id="updateUser" parameterType="User">
+        update oldbusiness.user
+        set userPwd=#{userPwd},userPhone=#{userPhone}
+        where userID=#{userID}
+    </update>
+
+    <!--修改用户 - 管理员-->
+    <update id="updateUserAdmin" parameterType="User">
+        update oldbusiness.user
+        set userPwd=#{userPwd},userPhone=#{userPhone},userBalance=#{userBlance}
+        where userID=#{userID}
+    </update>
+
+    <!--查询所有用户-->
+    <select id="userSelectAll" resultType="User">
+        select * from oldbusiness.user
+    </select>
+
+    <!--按ID查询-->
+    <select id="userSelectByID" parameterType="String" resultType="User">
+        select * from oldbusiness.user
+        where userID=#{userID}
+    </select>
+
+    <!--按姓名模糊查询-->
+    <select id="userSelectByNameLike" parameterType="String" resultType="User">
+        select * from oldbusiness.user
+        where userName like #{userName};
+    </select>
+</mapper>
